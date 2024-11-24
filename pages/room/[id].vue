@@ -17,24 +17,34 @@ const { data: roomObject } = await useFetch(`/rooms/${id}`, {
   },
 });
 
-/* 
-請將 useSeoMeta({ }) 改成 Nuxt3 SEO 元件的寫法
-重複邏輯的地方可以使用 computed 
 
-useSeoMeta({
-  title: roomObject.value.name,
-  titleTemplate: (title) => `Freyja | ${title}`,
-  description: () => `${roomObject.value.description}`,
-  ogTitle: () => `Freyja | ${roomObject.value.name}`,
-  ogDescription: () => `${roomObject.value.description}`,
-  ogImage: () => `${roomObject.value.imageUrl}`,
-  ogUrl: () => `https://freyja.travel.com.tw/room/${roomObject.value._id}`,
-  twitterCard: "summary_large_image",
-  twitterTitle: () => `Freyja | ${roomObject.value.name}`,
-  twitterDescription: () => `${roomObject.value.description}`,
-  twitterImage: () => `${roomObject.value.imageUrl}`,
-});
-*/
+// 請將 useSeoMeta({ }) 改成 Nuxt3 SEO 元件的寫法
+// 重複邏輯的地方可以使用 computed 
+
+// useSeoMeta({
+//   title: roomObject.value.name,
+//   titleTemplate: (title) => `Freyja | ${title}`,
+//   description: () => `${roomObject.value.description}`,
+//   ogTitle: () => `Freyja | ${roomObject.value.name}`,
+//   ogDescription: () => `${roomObject.value.description}`,
+//   ogImage: () => `${roomObject.value.imageUrl}`,
+//   ogUrl: () => `https://freyja.travel.com.tw/room/${roomObject.value._id}`,
+//   twitterCard: "summary_large_image",
+//   twitterTitle: () => `Freyja | ${roomObject.value.name}`,
+//   twitterDescription: () => `${roomObject.value.description}`,
+//   twitterImage: () => `${roomObject.value.imageUrl}`,
+// });
+const title = roomObject.value.name;
+const titleTemplate = `Freyja | ${title}`;
+const description = roomObject.value.description;
+const ogTitle = `Freyja | ${title}`;
+const ogDescription =  roomObject.value.description;
+const ogImage =  roomObject.value.imageUrl;
+const ogUrl =  `https://freyja.travel.com.tw/room/${roomObject.value._id}`;
+const twitterCard =  "summary_large_image";
+const twitterTitle =  `Freyja | ${title}`;
+const twitterDescription =  roomObject.value.description;
+const twitterImage =  roomObject.value.imageUrl;
 
 const isProvide = function (isProvideBoolean = false) {
   return isProvideBoolean ? "提供" : "未提供";
@@ -44,6 +54,16 @@ const isProvide = function (isProvideBoolean = false) {
 <template>
   <Head>
     <!-- 請在此處作答，使用元件設定頁面的 SEO Meta  -->
+    <Title>{{ titleTemplate }}</Title>
+    <Meta name="description" :content="description" /> 
+    <Meta property="og:title" :content="ogTitle" /> 
+    <Meta property="og:description" :content="ogDescription" /> 
+    <Meta property="og:image" :content="ogImage" /> 
+    <Meta property="og:url" :content="ogUrl" /> 
+    <Meta name="twitter:card" :content="twitterCard" /> 
+    <Meta name="twitter:title" :content="twitterTitle" /> 
+    <Meta name="twitter:description" :content="twitterDescription" /> 
+    <Meta name="twitter:description" :content="twitterImage" /> 
   </Head>
 
   <h2>房型詳細頁面</h2>
